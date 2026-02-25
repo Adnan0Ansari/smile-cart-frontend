@@ -26,7 +26,7 @@ const Product = () => {
   }, []);
 
   if (loading) {
-    return <div className="p-10 text-center text-2xl">Loading...</div>;
+    return <div className="p-10 text-center text-2xl">Loading..</div>;
   }
 
   if (!product) {
