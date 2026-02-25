@@ -1,9 +1,6 @@
-import axios from "axios";
+import axiosInstance from "./axios";
 
-const show = () =>
-  axios.get(
-    "https://smile-cart-backend-staging.neetodeployapp.com/products/infinix-inbook-2"
-  );
+const show = () => axiosInstance.get("/products/infinix-inbook-2");
 
 const productsApi = { show };
 
