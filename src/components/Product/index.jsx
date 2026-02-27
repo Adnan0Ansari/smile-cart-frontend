@@ -16,7 +16,8 @@ const Product = () => {
   const fetchProduct = async () => {
     try {
       const response = await productsApi.show(slug);
-
+      console.log("slug:", slug);
+      console.log("response:", response);
       setProduct(response);
     } catch (error) {
       console.log("An error occurred:", error);

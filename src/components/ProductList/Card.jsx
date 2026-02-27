@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import routes from "routes";
+import { buildUrl } from "utils";
 
 const Card = ({ name, mrp, offerPrice, imageUrl, slug }) => (
-  <Link to={`/products/${slug}`}>
+  <Link to={buildUrl(routes.products.show, { slug })}>
     <div className="m-2 w-48 cursor-pointer rounded-lg border p-4 hover:shadow-lg">
       <img alt={name} className="h-48 w-48 object-contain" src={imageUrl} />
       <div className="mt-2 space-y-1">
