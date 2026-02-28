@@ -1,6 +1,6 @@
 import axiosInstance from "./axios";
 
-const fetch = () => axiosInstance.get("/products");
+const fetch = params => axiosInstance.get("/products", { params });
 const show = slug => axiosInstance.get(`/products/${slug}`);
 const productsApi = { fetch, show };
 
