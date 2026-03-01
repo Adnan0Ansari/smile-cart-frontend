@@ -12,7 +12,17 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [cartItems, setCartItems] = useState([]);
   const debouncedSeachTerm = useDebounce(searchTerm);
+
+  const handleCartItems = slug => {
+    if (cartItems.includes(slug)) {
+      setCartItems(cartItems.filter(item => item !== slug));
+    } else {
+      setCartItems([...cartItems, slug]);
+    }
+  };
+
   const fetchProducts = async () => {
     try {
       const response = await productsApi.fetch({
@@ -38,6 +48,7 @@ const ProductList = () => {
   return (
     <div className="flex flex-col">
       <Header
+        cartItemsCount={cartItems.length}
         title="Smile Cart"
         actionBlock={
           <input
@@ -53,7 +64,12 @@ const ProductList = () => {
       ) : (
         <div className="grid grid-cols-4 gap-4 p-4">
           {products.map(product => (
-            <Card key={product.slug} {...product} />
+            <Card
+              key={product.slug}
+              {...product}
+              cartItems={cartItems}
+              handleCartItems={handleCartItems}
+            />
           ))}
         </div>
       )}
