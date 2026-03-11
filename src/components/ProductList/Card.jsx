@@ -10,8 +10,8 @@ const Card = ({
   offerPrice,
   imageUrl,
   slug,
-  cartItems,
-  handleCartItems,
+  isInCart,
+  toggleIsInCart,
 }) => (
   <Link to={buildUrl(routes.products.show, { slug })}>
     <div className="m-2 w-48 cursor-pointer rounded-lg border p-4 hover:shadow-lg">
@@ -23,9 +23,9 @@ const Card = ({
           Offer price: {offerPrice}
         </p>
         <AddToCart
-          cartItems={cartItems}
-          handleCartItems={handleCartItems}
+          isInCart={isInCart}
           slug={slug}
+          toggleIsInCart={toggleIsInCart}
         />
       </div>
     </div>

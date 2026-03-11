@@ -4,7 +4,7 @@ import productsApi from "apis/products";
 import { Header, PageLoader } from "components/commons";
 import useDebounce from "hooks/useDebounce";
 import { NoData } from "neetoui";
-import { isEmpty } from "ramda";
+import { isEmpty, without } from "ramda";
 
 import Card from "./Card";
 
@@ -13,20 +13,20 @@ const ProductList = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
-  const debouncedSeachTerm = useDebounce(searchTerm);
+  const debouncedSearchTerm = useDebounce(searchTerm);
 
-  const handleCartItems = slug => {
-    if (cartItems.includes(slug)) {
-      setCartItems(cartItems.filter(item => item !== slug));
-    } else {
-      setCartItems([...cartItems, slug]);
-    }
+  const toggleIsInCart = slug => {
+    setCartItems(prevCartItems =>
+      prevCartItems.includes(slug)
+        ? without([slug], prevCartItems)
+        : [slug, ...prevCartItems]
+    );
   };
 
   const fetchProducts = async () => {
     try {
       const response = await productsApi.fetch({
-        searchTerm: debouncedSeachTerm,
+        searchTerm: debouncedSearchTerm,
       });
 
       setProducts(response.products);
@@ -39,7 +39,7 @@ const ProductList = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, [debouncedSeachTerm]);
+  }, [debouncedSearchTerm]);
 
   if (loading) {
     return <PageLoader />;
@@ -67,8 +67,8 @@ const ProductList = () => {
             <Card
               key={product.slug}
               {...product}
-              cartItems={cartItems}
-              handleCartItems={handleCartItems}
+              isInCart={cartItems.includes(product.slug)}
+              toggleIsInCart={() => toggleIsInCart(product.slug)}
             />
           ))}
         </div>

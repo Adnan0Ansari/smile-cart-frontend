@@ -1,12 +1,10 @@
 import { Button } from "neetoui";
 
-const AddToCart = ({ slug, cartItems, handleCartItems }) => {
-  const isInCart = cartItems.includes(slug);
-
+const AddToCart = ({ isInCart, toggleIsInCart }) => {
   const handleClick = e => {
     e.stopPropagation();
     e.preventDefault();
-    handleCartItems(slug);
+    toggleIsInCart();
   };
 
   return (
