@@ -1,18 +1,9 @@
+import { AddToCart } from "components/commons";
 import { Link } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils";
 
-import AddToCart from "./AddToCart";
-
-const Card = ({
-  name,
-  mrp,
-  offerPrice,
-  imageUrl,
-  slug,
-  isInCart,
-  toggleIsInCart,
-}) => (
+const Card = ({ name, mrp, offerPrice, imageUrl, slug }) => (
   <Link to={buildUrl(routes.products.show, { slug })}>
     <div className="m-2 w-48 cursor-pointer rounded-lg border p-4 hover:shadow-lg">
       <img alt={name} className="h-48 w-48 object-contain" src={imageUrl} />
@@ -22,11 +13,7 @@ const Card = ({
         <p className="font-semibold text-green-600">
           Offer price: {offerPrice}
         </p>
-        <AddToCart
-          isInCart={isInCart}
-          slug={slug}
-          toggleIsInCart={toggleIsInCart}
-        />
+        <AddToCart slug={slug} />
       </div>
     </div>
   </Link>

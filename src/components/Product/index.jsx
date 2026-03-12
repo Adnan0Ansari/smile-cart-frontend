@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import productsApi from "apis/products";
-import { Header, PageNotFound } from "components/commons";
+import { Header, PageNotFound, AddToCart } from "components/commons";
 import { append, isNotNil } from "ramda";
 import { useParams } from "react-router-dom";
 
@@ -60,6 +60,7 @@ const Product = () => {
           <p>{mrp}</p>
           <p className="font-semibold">Offer price: {offerPrice}</p>
           <p className="font-semibold text-green-600">{discountPercentage}</p>
+          <AddToCart slug={slug} />
         </div>
       </div>
     </div>
